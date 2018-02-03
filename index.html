@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<script src="https://api-maps.yandex.ru/2.0-stable/?load=package.full&lang=ru-RU" type="text/javascript"></script>
+	<style>
+		body{
+			font-family: sans-serif;
+			font-size: 20px;
+		}
+		#hand{
+			margin: 20px;
+			text-align: center;
+		}
+		#listTiwn{
+			text-align: center;
+		}
+		#listTown li{
+			padding: 10px;
+			display: inline-block;
+
+		}
+		#status{
+			text-align: center;
+			margin: 30px auto;
+		}
+	</style>
+	<title>Document</title>
+</head>
+<body>
+	 <div id="myMap" style="width: 600px; height: 300px; margin: auto;"></div>
+	<div id="hand">
+		<input type="text" id="town">
+		<button>Войс</button>
+		<button id="step">Ход</button>
+		<button id="pass">Сдаться</button>
+	</div>
+	<div id="status">
+		<span id="text"></span>
+	</div>
+	<ul id="listTown">
+		
+	</ul>
+	<script src="cities.js"></script>
+	<script src="js/script.js"></script>
+</body>
+</html>
