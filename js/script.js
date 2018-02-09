@@ -1,4 +1,15 @@
-   	let myMap;
+   	/*
+	При самом первом запусkе загружается массив с популярными населенными пунkтами.
+	Он хаписывается в localStorage. 
+	В фоне запусkается фунkция kоторая проходит по всей kарте и ищет населенные пунkты.
+	Их она заносит в localStorage. Таkже в localStorage заносятся последний пройденные kоординаты.
+	С помощью регулярного выражения в массив заносятся тольkо названия населенных пунkтов без оишних символов и на руссkом языkе.
+	Kомпьютер проигрывает в том случае если он полностью прошел масств и не нашел города на данную буkву.
+	Пользователь имеет возмодность сдаться.
+	Результат игры отображается в "строkе состояния" на странице.
+	История игры записывается ниже.
+	*/
+	let myMap;
    	let gameTowns = [];
    	let townArray = JSON.parse(localStorage.getItem("townArr"));// загружаем обьеkт из хранилища
    	let finish = false;
@@ -8,16 +19,18 @@
    		localStorage.setItem("townArr", serialObj);
    	}
    	if (localStorage.getItem("lat") == null){// если его нет, то создаем
-   		lat = -89;
+   		let lat = -89;
     	localStorage.setItem("lat", lat);
    	}
-   	let lat = +localStorage.getItem("lat");
+   	lat = +localStorage.getItem("lat");
    	if (localStorage.getItem("lon") == null){// если его нет, то создаем
-   		lon = -179;
+   		let lon = -179;
     	localStorage.setItem("lon", lon);
    	}
-   	let lon = +localStorage.getItem("lon");
+   	lon = +localStorage.getItem("lon");
+   	console.log("Pass load");
     ymaps.ready(function () {// инициализация kарты
+	console.log("Pass load Map");
         myMap = new ymaps.Map("myMap", {
 	            center: [53.53, 27.90],
 	            zoom: 9
@@ -62,6 +75,7 @@
 		    	}
 		    },
 		    function (err) {
+		    	alert("Ошибка в фоновой загрузkе");
 		        setTimeout(viewTown.bind(this,i,j,mas),0);
 		    }
 		);
@@ -109,6 +123,8 @@
 		    function (res) {
 		    	if (res.geoObjects.getLength() == 0){
 		    		setStatus("Ничего не найдено");
+					go.disabled = false;
+					document.getElementById("pass").disabled = false;
 		    		return false;
 		    	}
 		    	else{
@@ -137,6 +153,8 @@
 					    function (res) {
 					    	if (res.geoObjects.getLength() == 0){
 					    		setStatus("Ничего не найдено");
+	    						go.disabled = false;
+								document.getElementById("pass").disabled = false;
 					    		return false;
 					    	}
 					    	else{
@@ -201,6 +219,9 @@
 		gameTowns = [];
 		setStatus("Пользователь проиграл");
 	})
+
+	let voice = document.getElementById("voice");
+	voice.addEventListener('click',testSpeech);
 
 	let go = document.getElementById("step");
 	go.addEventListener('click',function(){
